@@ -70,43 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.brown[400],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'My Profile',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: Image.network(
-                              'https://img.etoday.co.kr/pto_db/2017/07/600/20170710053714_1093286_610_614.jpg')),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('벤', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                              ElevatedButton(
-                                  onPressed: () {}, child: Text('프로필 수정')),
-                            ],
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {}, icon: Icon(Icons.settings))
-                    ],
-                  ),
-                ],
+            SizedBox(
+              height: 300,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.brown[400],
+                ),
+                child: drawerProfileHeader(),
               ),
             ),
           ],
@@ -137,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline4,
             ),
           ],
         ),
@@ -147,6 +120,70 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget item(Icon icon, String itemName) {
+    return Column(
+      children: [
+        icon,
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(itemName),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text('0', style: TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.purpleAccent),),
+        )
+      ],
+    );
+  }
+
+  Widget drawerProfileHeader() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'My Profile',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+        Row(
+          children: [
+            SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.network(
+                    'https://img.etoday.co.kr/pto_db/2017/07/600/20170710053714_1093286_610_614.jpg')),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '벤',
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    ElevatedButton(onPressed: () {}, child: Text('프로필 수정')),
+                  ],
+                ),
+              ),
+            ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.settings))
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            item(Icon(Icons.heart_broken), '관심 글'),
+            item(Icon(Icons.note_alt_outlined), '작성 글'),
+            item(Icon(Icons.thumb_up), '트로피'),
+          ],
+        )
+      ],
     );
   }
 }
